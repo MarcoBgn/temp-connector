@@ -104,8 +104,12 @@ describe HomeController, type: :controller do
   describe 'redirect_to_external' do
     subject { get :redirect_to_external }
 
-    context 'otherwise' do
-      xit { expect(subject).to redirect_to('somewhere') }
+    let(:organization) {  create(:organization, instance_url: 'url') }
+
+    before { allow_any_instance_of(Maestrano::Connector::Rails::SessionHelper).to receive(:current_organization).and_return(organization)}
+
+    context 'It redirects to the external application' do
+      it { expect(subject).to redirect_to('https://app.pipedrive.com') }
     end
   end
 end

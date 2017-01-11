@@ -26,7 +26,7 @@ class HomeController < ApplicationController
   end
 
   def redirect_to_external
-    redirect_to 'https://www.pipedrive.com'
+    redirect_to 'https://app.pipedrive.com'
   end
 
   private

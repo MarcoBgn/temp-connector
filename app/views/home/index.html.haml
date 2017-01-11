@@ -27,11 +27,14 @@
               Your Pipedrive account <strong>#{current_organization.oauth_name} (#{current_organization.oauth_uid})</strong> is currently linked
             - else
               Your Pipedrive account is not linked
+              %br
         .col-md-4.col-md-offset-8.text-center.link-step-action
           - if current_organization.oauth_uid
             = link_to "Disconnect", signout_omniauth_path(organization_id: current_organization.id), class: "btn btn-warning btn-lg #{is_admin ? '' : 'disabled'}"
           - else
             - if is_admin
+              .col-md-12.col-md-offset-1.text-center
+              %small Your Pipedrive email and password are not stored by Maestrano
               = render 'authentication_form'
               %br
               %small If you don’t have an account #{link_to 'create yours here', Maestrano::Connector::Rails::External.create_account_link(current_organization || nil)}
@@ -97,4 +100,3 @@
       .row
         .col-md-4.col-md-offset-4.center
           = link_to 'Link your Maestrano account', Maestrano::Connector::Rails::Engine.routes.url_helpers.default_maestrano_auth_saml_index_path(tenant: :default), class: 'btn btn-warning'
-
